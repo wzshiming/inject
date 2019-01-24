@@ -57,7 +57,7 @@ func (in *Injector) Lookup(typ reflect.Type) (reflect.Value, bool) {
 	return reflect.Value{}, false
 }
 
-// InjectStruct inject this value, structure will find the `inject` tags for injection.
+// InjectStruct inject this value, structure will find the not `inject:"-"` tags for injection.
 func (in *Injector) InjectStruct(val reflect.Value) error {
 	return in.inject(val, true)
 }
