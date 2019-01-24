@@ -54,9 +54,9 @@ func TestInjectStruct(t *testing.T) {
 	}
 
 	type T struct {
-		S    string    `inject:""`
-		I    *int      `inject:""`
-		Time time.Time `inject:""`
+		S    string
+		I    *int
+		Time time.Time
 	}
 	data := []args{
 		{[]interface{}{"A", 2, time.Now()}, new(T)},
@@ -82,7 +82,7 @@ func TestInjectStruct(t *testing.T) {
 			field := out.Field(i)
 			in := reflect.ValueOf(row.Ins[i])
 			if !reflect.DeepEqual(reflect.Indirect(in).Interface(), reflect.Indirect(field).Interface()) {
-				t.Errorf("Error: Injection failure: %s, %s ", in.String(), field.String())
+				t.Errorf("Error: Injection failure: %v, %v ", in, field)
 			}
 		}
 	}
