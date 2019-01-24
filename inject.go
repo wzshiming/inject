@@ -88,7 +88,7 @@ func (in *Injector) inject(val reflect.Value, structure bool) error {
 			num := typ.NumField()
 			for i := 0; i != num; i++ {
 				field := typ.Field(i)
-				if _, ok := field.Tag.Lookup("inject"); !ok {
+				if v, ok := field.Tag.Lookup("inject"); ok && v == "-" {
 					continue
 				}
 				in.inject(val.Field(i), structure)
