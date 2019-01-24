@@ -91,7 +91,7 @@ func TestInjectStruct(t *testing.T) {
 func TestCall(t *testing.T) {
 	inj := inj.Child()
 	inj.Map(reflect.ValueOf(10))
-	inj.Map(reflect.ValueOf([]string{"A",""}))
+	inj.Map(reflect.ValueOf([]string{"A", ""}))
 	inj.Call(reflect.ValueOf(func(i int, s string) {
 		if i != 10 {
 			t.Fail()
@@ -103,7 +103,7 @@ func TestCall(t *testing.T) {
 		}
 	}))
 	inj.Call(reflect.ValueOf(func(s ...string) {
-		if len(s)!=2 {
+		if len(s) != 2 {
 			t.Fail()
 			return
 		}
