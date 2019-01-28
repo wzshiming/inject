@@ -1,5 +1,7 @@
 # Inject
 
+Is a simplified dependency injection library
+
 [![Build Status](https://travis-ci.org/wzshiming/inject.svg?branch=master)](https://travis-ci.org/wzshiming/inject)
 [![Go Report Card](https://goreportcard.com/badge/github.com/wzshiming/inject)](https://goreportcard.com/report/github.com/wzshiming/inject)
 [![GoDoc](https://godoc.org/github.com/wzshiming/inject?status.svg)](https://godoc.org/github.com/wzshiming/inject)
