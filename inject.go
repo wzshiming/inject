@@ -69,13 +69,19 @@ func (in *Injector) Inject(val reflect.Value) error {
 
 func (in *Injector) inject(val reflect.Value, structure bool) error {
 	typ := val.Type()
-	if data, ok := in.Lookup(typ); ok && val.CanAddr() {
+	if data, ok := in.Lookup(typ); ok {
+		if !val.CanSet() {
+			return nil
+		}
 		val.Set(data)
 		return nil
 	}
 	switch val.Kind() {
 	case reflect.Ptr:
 		if val.IsNil() {
+			if !val.CanSet() {
+				return nil
+			}
 			val.Set(reflect.New(typ.Elem()))
 		}
 		return in.inject(val.Elem(), structure)
