@@ -27,13 +27,21 @@ func (in *Injector) Child() *Injector {
 // Map map this value.
 func (in *Injector) Map(val reflect.Value) error {
 	typ := val.Type()
-	in.mapping[typ] = val
 	switch val.Kind() {
+	default:
+		if reflect.DeepEqual(val, reflect.Zero(typ).Interface()) {
+			delete(in.mapping, typ)
+		} else {
+			in.mapping[typ] = val
+		}
 	case reflect.Interface, reflect.Ptr:
 		if val.IsNil() {
-			return fmt.Errorf(`Error: Mapped a null value: %v`, val)
+			delete(in.mapping, typ)
+			delete(in.mapping, typ.Elem())
+		} else {
+			in.mapping[typ] = val
+			return in.Map(val.Elem())
 		}
-		return in.Map(val.Elem())
 	}
 	return nil
 }
