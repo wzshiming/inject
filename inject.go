@@ -29,21 +29,12 @@ func (in *Injector) Map(val reflect.Value) error {
 	typ := val.Type()
 	switch val.Kind() {
 	default:
-		if reflect.DeepEqual(val, reflect.Zero(typ).Interface()) {
-			delete(in.mapping, typ)
-		} else {
-			in.mapping[typ] = val
-		}
+		in.mapping[typ] = val
+		return nil
 	case reflect.Interface, reflect.Ptr:
-		if val.IsNil() {
-			delete(in.mapping, typ)
-			delete(in.mapping, typ.Elem())
-		} else {
-			in.mapping[typ] = val
-			return in.Map(val.Elem())
-		}
+		in.mapping[typ] = val
+		return in.Map(val.Elem())
 	}
-	return nil
 }
 
 // Get Find the value of the type from the mapping and return zero value if not.
